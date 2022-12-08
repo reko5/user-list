@@ -16,8 +16,6 @@ const columns = [
     id: "created_at",
     label: "Created At",
     minWidth: 170,
-    /*align: 'right',
-    format: (value) => value.toLocaleString('en-US'),*/
   },
 ];
 
@@ -46,7 +44,7 @@ export default function UserList() {
 
   return (
     <Paper sx={{ width: "100%", overflow: "hidden" }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
+      <TableContainer sx={{ maxHeight: 600 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
