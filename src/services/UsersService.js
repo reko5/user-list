@@ -5,7 +5,7 @@ const client = axios.create({
 });
 
 const getUsers = () => {
-  return client.get("/users");
+  return client.get("/users.json");
 };
 
 const addUser = user => {
