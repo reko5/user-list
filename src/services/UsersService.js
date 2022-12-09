@@ -13,7 +13,7 @@ const addUser = user => {
 };
 
 const updateUser = user => {
-  return client.post("/users", { ...user });
+  return client.post("/users/:id", { ...user });
 };
 
 export { getUsers, addUser, updateUser };
