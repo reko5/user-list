@@ -9,11 +9,11 @@ const getUsers = () => {
 };
 
 const addUser = user => {
-  return client.post("/new", { ...user });
+  return client.post("/users", { ...user });
 };
 
 const updateUser = user => {
-  return client.post("/edit", { ...user });
+  return client.post("/users", { ...user });
 };
 
 export { getUsers, addUser, updateUser };
