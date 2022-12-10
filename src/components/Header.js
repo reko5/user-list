@@ -18,14 +18,16 @@ const pages = ["User List", "Add User", "Edit User"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 const href = ["/users", "/new", "/edit"];
 
-function Header() {
+export default function Header() {
   const [anchorElNav, setAnchorElNav] = useState();
   const [anchorElUser, setAnchorElUser] = useState();
 
   const handleOpenNavMenu = (event) => {
+    event.preventDefault();
     setAnchorElNav(event.currentTarget);
   };
   const handleOpenUserMenu = (event) => {
+    event.preventDefault();
     setAnchorElUser(event.currentTarget);
   };
 
@@ -42,7 +44,7 @@ function Header() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Groups2Icon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <Link to="/" style={{ textDecoration: 'none' }}>
+          <Link to="/" style={{ textDecoration: "none" }}>
             <Typography
               variant="h6"
               noWrap
@@ -115,18 +117,18 @@ function Header() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            Home
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page, i) => (
-              <Link to={href[i]} style={{ textDecoration: 'none' }}>
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block", mr: 3 }}
-              >
-                {page}
-              </Button>
+              <Link to={href[i]} style={{ textDecoration: "none" }}>
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block", mr: 3 }}
+                >
+                  {page}
+                </Button>
               </Link>
             ))}
           </Box>
@@ -164,7 +166,6 @@ function Header() {
     </AppBar>
   );
 }
-export default Header;
 
 /*
 import React from "react";
