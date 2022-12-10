@@ -21,7 +21,7 @@ function App() {
         <Route path="/users" element={<UserList />} />
         <Route path="/new" element={<AddUser />} />
         <Route path="/edit" element={<EditUser />} />
-        <Route path="*" element ={<NotFound />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </>
