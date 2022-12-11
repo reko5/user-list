@@ -18,8 +18,8 @@ const addUser = user => {
   return client.post("/users.json", { ...user }, /*configAxios*/);
 };
 
-const updateUser = user => {
-  return client.post("/users/.json:id", { ...user }, /*configAxios*/);
+const updateUser = (userId, user) => {
+  return client.put(`/users/${userId}.json`, { ...user }, /*configAxios*/);
 };
 
 export { getUsers, addUser, updateUser };

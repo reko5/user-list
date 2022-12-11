@@ -49,7 +49,11 @@ export default function AddUser() {
     })
       .then((response) => {
         console.log(response);
-        setMessageOk("User added to the list!");
+        setMessageOk(
+          `User added to the list as "${
+            firstName.value + " " + lastName.value
+          }"!`
+        );
         setMessageNotOk("");
         setMesssageFirstName("");
         setMesssageLastName("");

@@ -20,7 +20,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/users" element={<UserList />} />
         <Route path="/new" element={<AddUser />} />
-        <Route path="/edit" element={<EditUser />} />
+        <Route path="/edit/:id" element={<EditUser />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
