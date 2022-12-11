@@ -12,6 +12,9 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Button from "@mui/material/Button";
 import MiscellaneousServicesIcon from "@mui/icons-material/MiscellaneousServices";
+// import FormGroup from "@mui/material/FormGroup";
+// import FormControlLabel from "@mui/material/FormControlLabel";
+import SwitchButton from "../components/SwitchButton";
 
 const theme = createTheme();
 
@@ -26,8 +29,8 @@ const columns = [
 ];
 
 export default function UserList() {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -47,12 +50,16 @@ export default function UserList() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
+/*
+  const handleChangeSwitch = (event) => {
+    setChecked(event.target.checked);
+  };
+*/
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
-        <TableContainer sx={{ maxHeight: 600 }}>
+        <TableContainer sx={{ maxHeight: "83vh" }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
@@ -72,6 +79,13 @@ export default function UserList() {
                 >
                   {"Edit User"}
                 </TableCell>
+                <TableCell
+                // key={column.id}
+                //align={column.align}
+                // style={{ minWidth: column.minWidth }}
+                >
+                  {"Lock/Activate"}
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -87,13 +101,28 @@ export default function UserList() {
                     >
                       {columns.map((column) => {
                         const value = users[column.id];
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === "number"
-                              ? column.format(value)
-                              : value}
-                          </TableCell>
-                        );
+                        if (users.status === "active") {
+                          return (
+                            <TableCell key={column.id} align={column.align}>
+                              {column.format && typeof value === "number"
+                                ? column.format(value)
+                                : value}
+                            </TableCell>
+                          );
+                        } else if (users.status === "locked") {
+                          return (
+                            <TableCell
+                              style={{ textDecoration: "line-through" }}
+                              key={column.id}
+                              align={column.align}
+                            >
+                              {column.format && typeof value === "number"
+                                ? column.format(value)
+                                : value}
+                            </TableCell>
+                          );
+                        }
+                        return 0;
                       })}
                       <TableCell>
                         <Button
@@ -103,6 +132,11 @@ export default function UserList() {
                         >
                           Edit User
                         </Button>
+                      </TableCell>
+                      <TableCell>
+                        <SwitchButton
+                          status={users.status}
+                        />
                       </TableCell>
                     </TableRow>
                   );

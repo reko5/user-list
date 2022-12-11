@@ -8,8 +8,8 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import Groups2Icon from "@mui/icons-material/Groups2";
 
-const pages = ["User List", "Add User", "Edit User"];
-const href = ["/users", "/new", "/edit"];
+const pages = ["User List", "Add User"];
+const href = ["/users", "/new"];
 
 export default function Header() {
   return (

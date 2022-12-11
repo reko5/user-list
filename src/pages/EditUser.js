@@ -57,7 +57,6 @@ export default function EditUser() {
       })
       .catch((error) => {
         console.log(error.response);
-        // setMesssage(JSON.stringify(error.response.data));
         const validationError = JSON.stringify(error.response.data);
         setMessageOk("");
         setMessageNotOk(validationError);
