@@ -17,8 +17,12 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 const theme = createTheme();
 
 export default function AddUser() {
-  const [firstName, setFirstName] = useState({value:""});
-  const [lastName, setLastName] = useState({value:""});
+  const [firstName, setFirstName] = useState({ value: "" });
+  const [lastName, setLastName] = useState({ value: "" });
+  const [messageOk, setMessageOk] = useState();
+  const [messageNotOk, setMessageNotOk] = useState();
+  const [messageFirstName, setMesssageFirstName] = useState();
+  const [messageLastName, setMesssageLastName] = useState();
 
   const firstNameHandler = (e) => {
     setFirstName((currentValue) => ({
@@ -35,10 +39,41 @@ export default function AddUser() {
   };
 
   const handleSubmit = (event) => {
+    // messageFirstName.current.value = null
+    // messageLastName.current.value = null
     event.preventDefault();
-    addUser({ first_name: firstName.value, last_name: lastName.value, status: "active" })
-      .then((response) => console.log(response))
-      .catch((error) => console.error(error));
+    addUser({
+      first_name: firstName.value,
+      last_name: lastName.value,
+      status: "active",
+    })
+      .then((response) => {
+        console.log(response);
+        setMessageOk("User added to the list!");
+        setMessageNotOk("");
+        setMesssageFirstName("");
+        setMesssageLastName("");
+      })
+      .catch((error) => {
+        console.log(error.response);
+        // setMesssage(JSON.stringify(error.response.data));
+        const validationError = JSON.stringify(error.response.data);
+        setMessageOk("");
+        setMessageNotOk(validationError);
+        if (
+          validationError.includes("first_name") &&
+          validationError.includes("last_name")
+        ) {
+          setMesssageFirstName("First name is not valid!");
+          setMesssageLastName("Last name is not valid!");
+        } else if (validationError.includes("first_name")) {
+          setMesssageFirstName("First name is not valid!");
+          setMesssageLastName("");
+        } else if (validationError.includes("last_name")) {
+          setMesssageLastName("Last name is not valid!");
+          setMesssageFirstName("");
+        }
+      });
   };
 
   return (
@@ -65,6 +100,20 @@ export default function AddUser() {
             noValidate
             sx={{ mt: 1 }}
           >
+            <div
+              style={{
+                color: "purple",
+              }}
+            >
+              {messageNotOk}
+            </div>
+            <div
+              style={{
+                color: "green",
+              }}
+            >
+              {messageOk}
+            </div>
             <TextField
               margin="normal"
               required
@@ -76,6 +125,13 @@ export default function AddUser() {
               autoFocus
               onChange={firstNameHandler}
             />
+            <div
+              style={{
+                color: "red",
+              }}
+            >
+              {messageFirstName}
+            </div>
             <TextField
               margin="normal"
               required
@@ -87,6 +143,14 @@ export default function AddUser() {
               autoComplete="lastName"
               onChange={lastNameHandler}
             />
+            <div
+              style={{
+                color: "red",
+              }}
+            >
+              {" "}
+              {messageLastName}
+            </div>
             <Button
               type="submit"
               fullWidth
