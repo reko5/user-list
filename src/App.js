@@ -3,11 +3,10 @@ import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
-import UserList from "./pages/UsersList";
+import UserList from "./pages/UserList";
 import AddUser from "./pages/AddUser";
 import EditUser from "./pages/EditUser";
 import NotFound from "./pages/NotFound";
-// import "./App.css";
 
 function App() {
   return (

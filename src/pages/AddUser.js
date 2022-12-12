@@ -19,17 +19,17 @@ export default function AddUser() {
   const [messageFirstName, setMesssageFirstName] = useState();
   const [messageLastName, setMesssageLastName] = useState();
 
-  const firstNameHandler = (e) => {
+  const firstNameHandler = (event) => {
     setFirstName((currentValue) => ({
       ...currentValue,
-      value: e.target.value,
+      value: event.target.value,
     }));
   };
 
-  const lastNameHandler = (e) => {
+  const lastNameHandler = (event) => {
     setLastName((currentValue) => ({
       ...currentValue,
-      value: e.target.value,
+      value: event.target.value,
     }));
   };
 
@@ -41,11 +41,7 @@ export default function AddUser() {
       status: "active",
     })
       .then((response) => {
-        setMessageOk(
-          `User added to the list as "${
-            firstName.value + " " + lastName.value
-          }"!`
-        );
+        setMessageOk(`Added as ${firstName.value + " " + lastName.value}!`);
         setMesssageFirstName("");
         setMesssageLastName("");
       })
@@ -92,13 +88,13 @@ export default function AddUser() {
             noValidate
             sx={{ mt: 1 }}
           >
-            <div
+            <Typography
               style={{
                 color: "green",
               }}
             >
               {messageOk}
-            </div>
+            </Typography>
             <TextField
               margin="normal"
               required
@@ -106,17 +102,16 @@ export default function AddUser() {
               id="firstName"
               label="First Name"
               name="firstName"
-              autoComplete="firstName"
               autoFocus
               onChange={firstNameHandler}
             />
-            <div
+            <Typography
               style={{
                 color: "red",
               }}
             >
               {messageFirstName}
-            </div>
+            </Typography>
             <TextField
               margin="normal"
               required
@@ -125,17 +120,15 @@ export default function AddUser() {
               label="Last Name"
               type="lastName"
               id="lastName"
-              autoComplete="lastName"
               onChange={lastNameHandler}
             />
-            <div
+            <Typography
               style={{
                 color: "red",
               }}
             >
-              {" "}
               {messageLastName}
-            </div>
+            </Typography>
             <Button
               type="submit"
               fullWidth

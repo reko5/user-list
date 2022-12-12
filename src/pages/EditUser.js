@@ -21,12 +21,12 @@ export default function EditUser() {
   const [messageFirstName, setMesssageFirstName] = useState();
   const [messageLastName, setMesssageLastName] = useState();
 
-  const firstNameHandler = (e) => {
-    setFirstName(e.target.value);
+  const firstNameHandler = (event) => {
+    setFirstName(event.target.value);
   };
 
-  const lastNameHandler = (e) => {
-    setLastName(e.target.value);
+  const lastNameHandler = (event) => {
+    setLastName(event.target.value);
   };
 
   useEffect(() => {
@@ -46,9 +46,7 @@ export default function EditUser() {
       last_name: lastName,
     })
       .then((response) => {
-        setMessageOk(
-          `"${firstName + " " + lastName}" is in the list!`
-        );
+        setMessageOk(`"${firstName + " " + lastName}" is in the list!`);
         setMesssageFirstName("");
         setMesssageLastName("");
       })
@@ -96,9 +94,6 @@ export default function EditUser() {
             sx={{ mt: 1 }}
           >
             <Typography
-              margin="normal"
-              required
-              fullWidth
               style={{
                 color: "green",
               }}

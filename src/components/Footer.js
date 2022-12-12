@@ -26,7 +26,7 @@ function Footer() {
               textDecoration: "none",
             }}
           >
-            Copyrigth &copy; reko5
+            Copyright &copy; 2022
           </Typography>
         </Box>
       </Container>
@@ -34,17 +34,3 @@ function Footer() {
   );
 }
 export default Footer;
-/*
-import React from "react";
-import 'bootstrap';
-
-export default function Footer() {
-  return (
-    <Container>
-      <Row>
-        <Col className="text-center py-3">Copyrigth &copy; reko5 </Col>
-      </Row>
-    </Container>
-  );
-}
-*/

@@ -12,8 +12,6 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Button from "@mui/material/Button";
 import MiscellaneousServicesIcon from "@mui/icons-material/MiscellaneousServices";
-// import FormGroup from "@mui/material/FormGroup";
-// import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 
 const theme = createTheme();
@@ -52,10 +50,8 @@ export default function UserList() {
   };
 
   const handleChangeSwitch = (user) => {
-    console.log(user);
     if (user.status === "active") user.status = "locked";
     else user.status = "active";
-    console.log(user);
     updateUser(user.id, user)
       .then((response) => {
         const newUsers = users.map((editedUser) => {
@@ -65,8 +61,7 @@ export default function UserList() {
         setUsers(newUsers);
       })
       .catch((error) => {
-        console.log(error)
-        console.log(error.response);
+        console.log(error);
       });
   };
 
@@ -82,25 +77,13 @@ export default function UserList() {
                   <TableCell
                     key={column.id}
                     align={column.align}
-                    style={{ minWidth: column.minWidth }}
+                    width="20%"
                   >
                     {column.label}
                   </TableCell>
                 ))}
-                <TableCell
-                // key={column.id}
-                //align={column.align}
-                // style={{ minWidth: column.minWidth }}
-                >
-                  {"Edit User"}
-                </TableCell>
-                <TableCell
-                // key={column.id}
-                //align={column.align}
-                // style={{ minWidth: column.minWidth }}
-                >
-                  {"Lock/Activate"}
-                </TableCell>
+                <TableCell width="20%">{"Edit User"}</TableCell>
+                <TableCell width="20%">{"Lock/Activate"}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -108,17 +91,12 @@ export default function UserList() {
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((user) => {
                   return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      tabIndex={-1}
-                      key={user.id}
-                    >
+                    <TableRow hover role="checkbox" tabIndex={-1} key={user.id}>
                       {columns.map((column) => {
                         const value = user[column.id];
                         if (user.status === "active") {
                           return (
-                            <TableCell key={column.id} align={column.align}>
+                            <TableCell key={column.id} align={column.align} width="20%">
                               {column.format && typeof value === "number"
                                 ? column.format(value)
                                 : value}
@@ -130,6 +108,7 @@ export default function UserList() {
                               style={{ textDecoration: "line-through" }}
                               key={column.id}
                               align={column.align}
+                              width="20%"
                             >
                               {column.format && typeof value === "number"
                                 ? column.format(value)
