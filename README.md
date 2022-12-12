@@ -11,11 +11,15 @@ I made a simple and smooth user interface with all the informations that the use
 
 ![User List](https://user-images.githubusercontent.com/105787337/206960081-ac64355a-66f4-4085-8352-b1544a682d76.jpg)
 
-![Home page](https://github.com/reko5/number-converter-tool/tree/main/public/NumberConverter1.jpg?raw=true)
+![Home page](https://github.com/reko5/user-list/blob/main/public/Home%20page.jpg)
 
-![Add user](https://github.com/reko5/number-converter-tool/tree/main/public/NumberConverter3.jpg?raw=true)
+![Add user](https://github.com/reko5/user-list/blob/main/public/Add%20user.jpg)
 
-![Edit user](https://github.com/reko5/number-converter-tool/tree/main/public/NumberConverter3.jpg?raw=true)
+![Add user (success)](https://github.com/reko5/user-list/blob/main/public/Add%20user%20(success).jpg)
+
+![Add user (fails)](https://github.com/reko5/user-list/blob/main/public/Add%20user%20(fails).jpg)
+
+![Edit user](https://github.com/reko5/user-list/blob/main/public/Edit%20user.jpg)
 
 <h2>Tech stacks that I used:</h2>
 
@@ -29,7 +33,7 @@ I made a simple and smooth user interface with all the informations that the use
 
 These are above the requirements for running the application in a browser. I used Google Chrome (version: 108.0.5359.99 ).
 
-<h2>List of features:</h2>
+<h2>List of main features:</h2>
 
 index.js:
 - Entering point for the applictaion, contains the logic for rendering the App component.
@@ -43,10 +47,10 @@ UsersService.js:
 - Contains the crucial functions to make connection with the server through CRUD (REST API) endpoints by Axios.
 
 Header.js:
-- This component has the Navigation bar with different links to the Home page, the User List, and Add user page.
+- This component has the Navigation bar with different links to the Home page, the User List, and Add user pages.
 
 UserList.js:
-- It holds the main functions of the application.
+- It contains the main functions of the application.
 
 - After GET the data from the server with the getUser function, it generate a table: first the columns, after the rows anc cells.
 
@@ -62,7 +66,7 @@ EditUser.js:
 - Can be used from User List through user.id. First name and Last name are editable by updateUser (PUT) function. It write out the actual attributes in the textfields, when open the page.
 
 AddUser.js:
-- We can add users with addUser (POST) function. Validation errors from the serveres are seen next to the labels (with red), as a success message too (with green).
+- We can add users with addUser (POST) function. Validation errors from the serveres are seen next to the labels (with red), as a success message too (with green) like on Edit User page too.
 
 Postman: It helps a lot, mostly when I need to check if my updates and edits were successful or not.
 
