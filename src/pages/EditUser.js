@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { updateUser } from "../services/UsersService";
+import { getUserById, updateUser } from "../services/UsersService";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import Typography from "@mui/material/Typography";
@@ -17,49 +15,46 @@ const theme = createTheme();
 
 export default function EditUser() {
   const { id } = useParams();
-  const [firstName, setFirstName] = useState({ value: "" });
-  const [lastName, setLastName] = useState({ value: "" });
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [messageOk, setMessageOk] = useState();
-  const [messageNotOk, setMessageNotOk] = useState();
   const [messageFirstName, setMesssageFirstName] = useState();
   const [messageLastName, setMesssageLastName] = useState();
 
   const firstNameHandler = (e) => {
-    setFirstName((currentValue) => ({
-      ...currentValue,
-      value: e.target.value,
-    }));
+    setFirstName(e.target.value);
   };
 
   const lastNameHandler = (e) => {
-    setLastName((currentValue) => ({
-      ...currentValue,
-      value: e.target.value,
-    }));
+    setLastName(e.target.value);
   };
+
+  useEffect(() => {
+    const fetchUser = async (id) => {
+      const { data } = await getUserById(id);
+      setFirstName(data.first_name);
+      setLastName(data.last_name);
+    };
+
+    fetchUser(id);
+  }, [id]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     updateUser(id, {
-      first_name: firstName.value,
-      last_name: lastName.value,
+      first_name: firstName,
+      last_name: lastName,
     })
       .then((response) => {
-        console.log(response);
         setMessageOk(
-          `User edited to "${
-            firstName.value + " " + lastName.value
-          }" in the list!`
+          `"${firstName + " " + lastName}" is in the list!`
         );
-        setMessageNotOk("");
         setMesssageFirstName("");
         setMesssageLastName("");
       })
       .catch((error) => {
-        console.log(error.response);
         const validationError = JSON.stringify(error.response.data);
         setMessageOk("");
-        setMessageNotOk(validationError);
         if (
           validationError.includes("first_name") &&
           validationError.includes("last_name")
@@ -78,7 +73,7 @@ export default function EditUser() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" sx={{ height: "82vh" }}>
         <CssBaseline />
         <Box
           sx={{
@@ -92,10 +87,7 @@ export default function EditUser() {
             <EditOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Edit User:
-          </Typography>
-          <Typography component="h1" variant="h6">
-            Need to fill both fields
+            Edit User
           </Typography>
           <Box
             component="form"
@@ -103,20 +95,16 @@ export default function EditUser() {
             noValidate
             sx={{ mt: 1 }}
           >
-            <div
-              style={{
-                color: "purple",
-              }}
-            >
-              {messageNotOk}
-            </div>
-            <div
+            <Typography
+              margin="normal"
+              required
+              fullWidth
               style={{
                 color: "green",
               }}
             >
               {messageOk}
-            </div>
+            </Typography>
             <TextField
               margin="normal"
               required
@@ -125,16 +113,17 @@ export default function EditUser() {
               label="First Name"
               name="firstName"
               autoComplete="firstName"
+              value={firstName}
               autoFocus
               onChange={firstNameHandler}
             />
-            <div
+            <Typography
               style={{
                 color: "red",
               }}
             >
               {messageFirstName}
-            </div>
+            </Typography>
             <TextField
               margin="normal"
               required
@@ -144,16 +133,17 @@ export default function EditUser() {
               type="lastName"
               id="lastName"
               autoComplete="lastName"
+              value={lastName}
               onChange={lastNameHandler}
             />
-            <div
+            <Typography
               style={{
                 color: "red",
               }}
             >
               {" "}
               {messageLastName}
-            </div>
+            </Typography>
             <Button
               type="submit"
               fullWidth
@@ -162,33 +152,9 @@ export default function EditUser() {
             >
               Edit
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  ASDASD
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"ASDASDASD"}
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
         </Box>
       </Container>
     </ThemeProvider>
   );
 }
-
-/*
-import React from 'react'
-import { useParams } from 'react-router-dom';
-
-export default function EditUser() {
-  const {id} = useParams()
-  return (
-    <div>EditUser {id}</div>
-  )
-}
-*/

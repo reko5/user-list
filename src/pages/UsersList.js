@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getUsers } from "../services/UsersService";
+import { getUsers, updateUser } from "../services/UsersService";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import Paper from "@mui/material/Paper";
@@ -14,7 +14,7 @@ import Button from "@mui/material/Button";
 import MiscellaneousServicesIcon from "@mui/icons-material/MiscellaneousServices";
 // import FormGroup from "@mui/material/FormGroup";
 // import FormControlLabel from "@mui/material/FormControlLabel";
-import SwitchButton from "../components/SwitchButton";
+import Switch from "@mui/material/Switch";
 
 const theme = createTheme();
 
@@ -50,16 +50,31 @@ export default function UserList() {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-/*
-  const handleChangeSwitch = (event) => {
-    setChecked(event.target.checked);
+
+  const handleChangeSwitch = (user) => {
+    console.log(user);
+    if (user.status === "active") user.status = "locked";
+    else user.status = "active";
+    console.log(user);
+    updateUser(user.id, user)
+      .then((response) => {
+        const newUsers = users.map((editedUser) => {
+          if (editedUser.id === user.id) return user;
+          return editedUser;
+        });
+        setUsers(newUsers);
+      })
+      .catch((error) => {
+        console.log(error)
+        console.log(error.response);
+      });
   };
-*/
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
-        <TableContainer sx={{ maxHeight: "83vh" }}>
+        <TableContainer sx={{ height: "83vh" }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
@@ -91,17 +106,17 @@ export default function UserList() {
             <TableBody>
               {users
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((users) => {
+                .map((user) => {
                   return (
                     <TableRow
                       hover
                       role="checkbox"
                       tabIndex={-1}
-                      key={users.id}
+                      key={user.id}
                     >
                       {columns.map((column) => {
-                        const value = users[column.id];
-                        if (users.status === "active") {
+                        const value = user[column.id];
+                        if (user.status === "active") {
                           return (
                             <TableCell key={column.id} align={column.align}>
                               {column.format && typeof value === "number"
@@ -109,7 +124,7 @@ export default function UserList() {
                                 : value}
                             </TableCell>
                           );
-                        } else if (users.status === "locked") {
+                        } else if (user.status === "locked") {
                           return (
                             <TableCell
                               style={{ textDecoration: "line-through" }}
@@ -126,7 +141,7 @@ export default function UserList() {
                       })}
                       <TableCell>
                         <Button
-                          href={`/edit/${users.id}`}
+                          href={`/edit/${user.id}`}
                           variant="contained"
                           endIcon={<MiscellaneousServicesIcon />}
                         >
@@ -134,8 +149,9 @@ export default function UserList() {
                         </Button>
                       </TableCell>
                       <TableCell>
-                        <SwitchButton
-                          status={users.status}
+                        <Switch
+                          checked={user.status === "active"}
+                          onChange={() => handleChangeSwitch(user)}
                         />
                       </TableCell>
                     </TableRow>

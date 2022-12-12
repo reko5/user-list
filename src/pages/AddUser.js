@@ -4,8 +4,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import AccessibilityNewOutlinedIcon from "@mui/icons-material/AccessibilityNewOutlined";
 import Typography from "@mui/material/Typography";
@@ -18,7 +16,6 @@ export default function AddUser() {
   const [firstName, setFirstName] = useState({ value: "" });
   const [lastName, setLastName] = useState({ value: "" });
   const [messageOk, setMessageOk] = useState();
-  const [messageNotOk, setMessageNotOk] = useState();
   const [messageFirstName, setMesssageFirstName] = useState();
   const [messageLastName, setMesssageLastName] = useState();
 
@@ -37,8 +34,6 @@ export default function AddUser() {
   };
 
   const handleSubmit = (event) => {
-    // messageFirstName.current.value = null
-    // messageLastName.current.value = null
     event.preventDefault();
     addUser({
       first_name: firstName.value,
@@ -46,22 +41,17 @@ export default function AddUser() {
       status: "active",
     })
       .then((response) => {
-        console.log(response);
         setMessageOk(
           `User added to the list as "${
             firstName.value + " " + lastName.value
           }"!`
         );
-        setMessageNotOk("");
         setMesssageFirstName("");
         setMesssageLastName("");
       })
       .catch((error) => {
-        console.log(error.response);
-        // setMesssage(JSON.stringify(error.response.data));
         const validationError = JSON.stringify(error.response.data);
         setMessageOk("");
-        setMessageNotOk(validationError);
         if (
           validationError.includes("first_name") &&
           validationError.includes("last_name")
@@ -80,7 +70,7 @@ export default function AddUser() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" sx={{ height: "82vh" }}>
         <CssBaseline />
         <Box
           sx={{
@@ -102,13 +92,6 @@ export default function AddUser() {
             noValidate
             sx={{ mt: 1 }}
           >
-            <div
-              style={{
-                color: "purple",
-              }}
-            >
-              {messageNotOk}
-            </div>
             <div
               style={{
                 color: "green",
@@ -161,31 +144,9 @@ export default function AddUser() {
             >
               Add
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  ASDASD
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
-                  {"ASDASDASD"}
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
         </Box>
       </Container>
     </ThemeProvider>
   );
 }
-
-/*
-import React from 'react'
-
-export default function AddUser() {
-  return (
-    <div>AddUser</div>
-  )
-}
-*/
