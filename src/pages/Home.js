@@ -37,10 +37,10 @@ export default function Home() {
           >
             Feel free to watch, add and edit your users at our brand new site.
             <br />
-            Every person found under USER LIST. If there aren't enough people
-            around you, just add them easily at ADD USER option.
+            Every person can be found under the USER LIST page. If there aren't
+            enough people around you, just add them easily at ADD USER page.
             <br />
-            If you wrote something wrong, dont't worry! Just click on the EDIT
+            If you wrote something wrong, don't worry! Just click on the EDIT
             USER button at User List, and change the names.
             <br />
             Last but not least, LOCK or ACTIVATE users with one click at User
